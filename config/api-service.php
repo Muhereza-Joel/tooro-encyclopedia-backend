@@ -11,12 +11,12 @@ return [
     ],
     'models' => [
         'token' => [
-            'enable_policy' => false,
+            'enable_policy' => true,
         ],
     ],
     'route' => [
         'panel_prefix' => true,
-        'use_resource_middlewares' => false,
+        'use_resource_middlewares' => true,
     ],
     'tenancy' => [
         'enabled' => false,
