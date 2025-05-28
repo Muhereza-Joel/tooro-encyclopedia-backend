@@ -7,11 +7,14 @@ use App\Filament\Resources\EventResource\RelationManagers;
 use App\Models\Event;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Actions\Action;
+use Illuminate\Support\Facades\Auth;
 
 class EventResource extends Resource
 {
@@ -72,20 +75,58 @@ class EventResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
+
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\ViewAction::make()
+                    ->iconButton(),
+                Tables\Actions\EditAction::make()
+                    ->iconButton(),
+                Action::make('book')
+                    ->label('Book Now')
+                    ->button()
+                    ->size('sm')
+                    ->outlined()
+                    ->form([
+                        Forms\Components\TextInput::make('quantity')
+                            ->label('Number of Tickets')
+                            ->required()
+                            ->numeric()
+                            ->minValue(1)
+                            ->maxValue(fn(Event $record) => $record->capacity),
+                    ])
+                    ->action(function (Event $record, array $data) {
+                        $user = auth()->user();
+
+                        if ($data['quantity'] > $record->capacity) {
+                            Notification::make()
+                                ->title('Booking Failed')
+                                ->danger()
+                                ->body('Not enough available seats')
+                                ->send();
+                            return;
+                        }
+
+                        $booking = $user->bookings()->create([
+                            'event_id' => $record->id,
+                            'quantity' => $data['quantity'],
+                            'status' => 'pending',
+                        ]);
+
+                        Notification::make()
+                            ->title('Booking Successful')
+                            ->success()
+                            ->body("You've booked {$data['quantity']} ticket(s) for {$record->title}")
+                            ->send();
+                    })
+                    ->requiresConfirmation()
+                    ->modalHeading('Confirm Booking')
+                    ->modalDescription('Are you sure you want to book this event?')
+                    ->modalSubmitActionLabel('Yes, book now'),
             ]);
     }
+
+
 
     public static function getRelations(): array
     {

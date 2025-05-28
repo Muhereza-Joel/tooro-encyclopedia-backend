@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Pages\PesaPalPayment;
 use App\Filament\Resources\BookingResource\Pages;
 use App\Filament\Resources\BookingResource\RelationManagers;
 use App\Models\Booking;
@@ -12,6 +13,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Actions\Action;
+use Illuminate\Support\Facades\Http;
 
 class BookingResource extends Resource
 {
@@ -23,17 +26,23 @@ class BookingResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('event_id')
-                    ->required()
-                    ->numeric(),
+                Forms\Components\Select::make('user_id')
+                    ->relationship('user', 'name')
+                    ->required(),
+                Forms\Components\Select::make('event_id')
+                    ->relationship('event', 'title')
+                    ->required(),
                 Forms\Components\TextInput::make('quantity')
                     ->required()
                     ->numeric()
                     ->default(1),
-                Forms\Components\TextInput::make('status')
+                Forms\Components\Select::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'confirmed' => 'Confirmed',
+                        'paid' => 'Paid',
+                        'cancelled' => 'Cancelled',
+                    ])
                     ->required(),
             ]);
     }
@@ -42,16 +51,25 @@ class BookingResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Client Name')
+                    ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('event_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('event.title')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('quantity')
+                    ->label('Number of Tickets')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('status'),
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'pending' => 'warning',
+                        'confirmed' => 'info',
+                        'paid' => 'success',
+                        'cancelled' => 'danger',
+                        default => 'gray',
+                    }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -62,11 +80,24 @@ class BookingResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        'pending' => 'Pending',
+                        'confirmed' => 'Confirmed',
+                        'paid' => 'Paid',
+                        'cancelled' => 'Cancelled',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Action::make('pay')
+                    ->label('Pay via PesaPal')
+                    ->icon('heroicon-o-credit-card')
+                    ->color('success')
+                    ->visible(fn(Booking $record): bool => $record->status !== 'paid')
+                    ->url(fn(Booking $record) => PesaPalPayment::getUrl(['booking_id' => $record->id])),
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -74,6 +105,9 @@ class BookingResource extends Resource
                 ]),
             ]);
     }
+
+
+
 
     public static function getRelations(): array
     {

@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+    'pesapal' => [
+        'consumer_key' => env('PESAPAL_CONSUMER_KEY'),
+        'consumer_secret' => env('PESAPAL_CONSUMER_SECRET'),
+        'ipn_id' => env('PESAPAL_IPN_ID'),
+        'callback_url' => env('PESAPAL_CALLBACK_URL', 'https://yourdomain.com/pesapal/callback'),
+    ],
+
+
 ];

@@ -11,6 +11,7 @@ class Booking extends Model
         'event_id',
         'quantity',
         'status',
+        'order_tracking_id',
     ];
 
     public function user()
