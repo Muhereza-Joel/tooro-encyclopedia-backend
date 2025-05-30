@@ -1,0 +1,40 @@
+@import "/public/css/filament/filament/app.css"; /* Custom app styles */
+@import "/public/css/filament/forms/forms.css"; /* Form styles */
+@import "/public/css/filament/support/support.css"; /* Support styles */
+
+/* Then include your Tailwind setup */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Additional custom styles (if needed) */
+
+.fi-sidebar {
+    background-color: #121d36 !important;
+}
+
+.fi-sidebar-item-label {
+    color: #fff !important;
+}
+
+.fi-sidebar-item.fi-active.fi-sidebar-item-active a {
+    background-color: #1e2a47 !important;
+    color: #fff;
+}
+
+.fi-sidebar-item a:hover {
+    background-color: #020005 !important;
+    color: #fff;
+}
+
+body {
+    background-color: #e7f3ff !important;
+}
+.fi-header {
+    /* background-color: #f5b9b9 !important; */
+}
+
+.expired {
+    background-color: #f5b9b9 !important;
+    border-left: 3px solid #f00 !important;
+}

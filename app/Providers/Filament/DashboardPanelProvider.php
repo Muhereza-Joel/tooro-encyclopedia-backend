@@ -28,9 +28,10 @@ class DashboardPanelProvider extends PanelProvider
             ->id('dashboard')
             ->path('dashboard')
             ->login()
+            ->darkMode(false)
             ->profile()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Blue,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -42,6 +43,10 @@ class DashboardPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
 
             ])
+            ->font('sans-serif - system-ui - -apple-system - BlinkMacSystemFont - "Segoe UI" - Roboto - "Helvetica Neue" - Arial - sans-serif')
+            ->theme(
+                asset('build/css/filament/style.css'),
+            )
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
