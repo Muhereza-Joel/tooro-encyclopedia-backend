@@ -17,6 +17,8 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class StatsOverview extends BaseWidget
 {
+    protected static ?int $columns = 2; //This ensures two columns even on smaller screens
+
     protected function getStats(): array
     {
         return [
