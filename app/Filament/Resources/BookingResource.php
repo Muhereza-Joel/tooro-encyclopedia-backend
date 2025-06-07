@@ -14,6 +14,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Actions\Action;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class BookingResource extends Resource
@@ -114,6 +115,20 @@ class BookingResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $user = Auth::user();
+
+        // If the user has the 'Youth' role, only show their own bookings
+        if ($user->hasRole('Youth')) {
+            return parent::getEloquentQuery()
+                ->where('user_id', $user->id);
+        }
+
+        // Otherwise, show all bookings (e.g., for admins)
+        return parent::getEloquentQuery();
     }
 
     public static function getPages(): array
