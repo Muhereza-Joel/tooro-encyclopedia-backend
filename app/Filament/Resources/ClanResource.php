@@ -97,6 +97,7 @@ class ClanResource extends Resource
             ->filters([
                 //
             ])
+            ->striped()
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
