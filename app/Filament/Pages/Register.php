@@ -23,7 +23,7 @@ class Register extends BaseRegister
                     Forms\Components\Radio::make('role')
                         ->label('Registering as')
                         ->options([
-                            'youth' => 'Youth',
+                            'Youth' => 'Youth',
 
                         ])
                         ->required(),
