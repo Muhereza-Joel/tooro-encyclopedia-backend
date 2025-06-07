@@ -23,6 +23,13 @@ class BookingResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
+    public static function getNavigationBadge(): ?string
+    {
+        $user = Auth::user();
+
+        return Booking::where('user_id', $user->id)->count();
+    }
+
     public static function form(Form $form): Form
     {
         return $form

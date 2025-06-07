@@ -19,6 +19,11 @@ class ProverbResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-ellipsis';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return Proverb::count(); // Count all users
+    }
+
     public static function form(Form $form): Form
     {
         return $form

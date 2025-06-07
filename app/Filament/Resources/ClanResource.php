@@ -19,6 +19,11 @@ class ClanResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return Clan::count(); // Count all users
+    }
+
     public static function form(Form $form): Form
     {
         return $form

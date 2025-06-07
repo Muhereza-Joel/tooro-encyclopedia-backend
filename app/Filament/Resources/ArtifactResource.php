@@ -25,6 +25,11 @@ class ArtifactResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-cube';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return Artifact::count(); // Count all users
+    }
+
     public static function form(Form $form): Form
     {
         return $form

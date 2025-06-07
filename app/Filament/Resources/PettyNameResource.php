@@ -19,6 +19,11 @@ class PettyNameResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-identification';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return PettyName::count(); // Count all users
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -81,22 +86,12 @@ class PettyNameResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('gender')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('origin')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('common_in_clans')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+
             ])
             ->filters([
                 //
             ])
+            ->striped()
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),

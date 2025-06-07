@@ -22,6 +22,11 @@ class EventResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return Event::count(); // Count all users
+    }
+
     public static function form(Form $form): Form
     {
         return $form
