@@ -122,11 +122,7 @@ class ArtifactResource extends Resource
                             ->circular(),
 
                         TextColumn::make('name')->weight('bold'),
-                        TextColumn::make('material'),
-                        TextColumn::make('origin'),
-                        TextColumn::make('category'),
-                        TextColumn::make('preservation_status'),
-                        TextColumn::make('location'),
+
                     ]),
                 ]),
             ])

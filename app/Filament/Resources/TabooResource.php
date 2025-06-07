@@ -81,17 +81,6 @@ class TabooResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('applies_to')
                     ->searchable(),
-
-                Tables\Columns\TextColumn::make('category')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

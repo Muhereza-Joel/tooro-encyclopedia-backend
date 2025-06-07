@@ -58,15 +58,11 @@ class EventResource extends Resource
                 Tables\Columns\TextColumn::make('start_time')
                     ->dateTime()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('end_time')
-                    ->dateTime()
-                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('price')
-                    ->money()
+                    ->money('Ugx')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('capacity')
-                    ->numeric()
-                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

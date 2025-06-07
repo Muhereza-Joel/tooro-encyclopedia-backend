@@ -30,6 +30,7 @@ class DashboardPanelProvider extends PanelProvider
             ->login()
             ->darkMode(false)
             ->profile()
+            ->registration(\App\Filament\Pages\Register::class)
             ->colors([
                 'primary' => Color::Blue,
             ])
