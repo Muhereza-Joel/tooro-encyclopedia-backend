@@ -17,7 +17,7 @@ class ProverbResource extends Resource
 {
     protected static ?string $model = Proverb::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-ellipsis';
 
     public static function form(Form $form): Form
     {
