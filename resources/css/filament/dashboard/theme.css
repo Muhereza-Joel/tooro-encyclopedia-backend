@@ -38,3 +38,59 @@ body {
     background-color: #f5b9b9 !important;
     border-left: 3px solid #f00 !important;
 }
+
+/* Stats Card Styling */
+.fi-wi-stats-overview-stat {
+    color: #000; /* Black text */
+    padding: 1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 1rem;
+}
+
+.fi-wi-stats-overview-stat:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Unique background colors for each stat card */
+.fi-wi-stats-overview-stat:nth-child(1) {
+    background-color: #ffe0e6; /* Soft pink */
+}
+
+.fi-wi-stats-overview-stat:nth-child(2) {
+    background-color: #f9e5d9; /* Light coral */
+}
+
+.fi-wi-stats-overview-stat:nth-child(3) {
+    background-color: #fff3cd; /* Light yellow */
+}
+
+.fi-wi-stats-overview-stat:nth-child(4) {
+    background-color: #e2f0cb; /* Pale green */
+}
+
+.fi-wi-stats-overview-stat:nth-child(5) {
+    background-color: #d4f1f9; /* Light cyan */
+}
+
+.fi-wi-stats-overview-stat:nth-child(6) {
+    background-color: #e0e7ff; /* Soft indigo */
+}
+
+.fi-wi-stats-overview-stat:nth-child(7) {
+    background-color: #fbe3ff; /* Lavender pink */
+}
+
+.fi-wi-stats-overview-stat:nth-child(8) {
+    background-color: #fde2e2; /* Rosy blush */
+}
+
+.fi-wi-stats-overview-stat:nth-child(9) {
+    background-color: #f4e1d2; /* Warm beige */
+}
+
+.fi-wi-stats-overview-stat:nth-child(10) {
+    background-color: #e2eafc; /* Gentle blue */
+}
