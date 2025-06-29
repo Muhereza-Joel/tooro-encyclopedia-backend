@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\PettyName;
+use App\Models\Question;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PettyNamePolicy
+class QuestionPolicy
 {
     use HandlesAuthorization;
 
@@ -15,15 +15,15 @@ class PettyNamePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_petty::name');
+        return $user->can('view_any_question');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, PettyName $pettyName): bool
+    public function view(User $user, Question $question): bool
     {
-        return $user->can('view_petty::name');
+        return $user->can('view_question');
     }
 
     /**
@@ -31,23 +31,23 @@ class PettyNamePolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_petty::name');
+        return $user->can('create_question');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, PettyName $pettyName): bool
+    public function update(User $user, Question $question): bool
     {
-        return $user->can('update_petty::name');
+        return $user->can('update_question');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, PettyName $pettyName): bool
+    public function delete(User $user, Question $question): bool
     {
-        return $user->can('delete_petty::name');
+        return $user->can('delete_question');
     }
 
     /**
@@ -55,15 +55,15 @@ class PettyNamePolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_petty::name');
+        return $user->can('delete_any_question');
     }
 
     /**
      * Determine whether the user can permanently delete.
      */
-    public function forceDelete(User $user, PettyName $pettyName): bool
+    public function forceDelete(User $user, Question $question): bool
     {
-        return $user->can('force_delete_petty::name');
+        return $user->can('force_delete_question');
     }
 
     /**
@@ -71,15 +71,15 @@ class PettyNamePolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_petty::name');
+        return $user->can('force_delete_any_question');
     }
 
     /**
      * Determine whether the user can restore.
      */
-    public function restore(User $user, PettyName $pettyName): bool
+    public function restore(User $user, Question $question): bool
     {
-        return $user->can('restore_petty::name');
+        return $user->can('restore_question');
     }
 
     /**
@@ -87,15 +87,15 @@ class PettyNamePolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_petty::name');
+        return $user->can('restore_any_question');
     }
 
     /**
      * Determine whether the user can replicate.
      */
-    public function replicate(User $user, PettyName $pettyName): bool
+    public function replicate(User $user, Question $question): bool
     {
-        return $user->can('replicate_petty::name');
+        return $user->can('replicate_question');
     }
 
     /**
@@ -103,6 +103,6 @@ class PettyNamePolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_petty::name');
+        return $user->can('reorder_question');
     }
 }

@@ -2,18 +2,20 @@
 
 namespace App\Policies;
 
-use App\Models\Clan;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Models\Clan;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ClanPolicy
 {
+    use HandlesAuthorization;
+
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('view_any_clan');
+        return $user->can('view_any_clan');
     }
 
     /**
@@ -21,7 +23,7 @@ class ClanPolicy
      */
     public function view(User $user, Clan $clan): bool
     {
-        return $user->hasPermissionTo('view_clan');
+        return $user->can('view_clan');
     }
 
     /**
@@ -29,7 +31,7 @@ class ClanPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('create_clan');
+        return $user->can('create_clan');
     }
 
     /**
@@ -37,7 +39,7 @@ class ClanPolicy
      */
     public function update(User $user, Clan $clan): bool
     {
-        return $user->hasPermissionTo('update_clan');
+        return $user->can('update_clan');
     }
 
     /**
@@ -45,62 +47,62 @@ class ClanPolicy
      */
     public function delete(User $user, Clan $clan): bool
     {
-        return $user->hasPermissionTo('delete_clan');
+        return $user->can('delete_clan');
     }
 
     /**
-     * Determine whether the user can delete any the model.
+     * Determine whether the user can bulk delete.
      */
     public function deleteAny(User $user): bool
     {
-        return $user->hasPermissionTo('delete_any_clan');
+        return $user->can('delete_any_clan');
     }
 
     /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Clan $clan): bool
-    {
-        return $user->hasPermissionTo('restore_clan');
-    }
-
-    /**
-     * Determine whether the user can restore any models.
-     */
-    public function restoreAny(User $user): bool
-    {
-        return $user->hasPermissionTo('restore_any_clan');
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
+     * Determine whether the user can permanently delete.
      */
     public function forceDelete(User $user, Clan $clan): bool
     {
-        return $user->hasPermissionTo('force_delete_clan');
+        return $user->can('force_delete_clan');
     }
 
     /**
-     * Determine whether the user can permanently delete any models.
+     * Determine whether the user can permanently bulk delete.
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->hasPermissionTo('force_delete_any_clan');
+        return $user->can('force_delete_any_clan');
     }
 
     /**
-     * Determine whether the user can replicate user.
+     * Determine whether the user can restore.
      */
-    public function replicate(User $user): bool
+    public function restore(User $user, Clan $clan): bool
     {
-        return $user->hasPermissionTo('replicate_clan');
+        return $user->can('restore_clan');
     }
 
     /**
-     * Determine whether the user can reorder user.
+     * Determine whether the user can bulk restore.
+     */
+    public function restoreAny(User $user): bool
+    {
+        return $user->can('restore_any_clan');
+    }
+
+    /**
+     * Determine whether the user can replicate.
+     */
+    public function replicate(User $user, Clan $clan): bool
+    {
+        return $user->can('replicate_clan');
+    }
+
+    /**
+     * Determine whether the user can reorder.
      */
     public function reorder(User $user): bool
     {
-        return $user->hasPermissionTo('reorder_clan');
+        return $user->can('reorder_clan');
     }
 }

@@ -2,18 +2,20 @@
 
 namespace App\Policies;
 
-use App\Models\Proverb;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Models\Proverb;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ProverbPolicy
 {
+    use HandlesAuthorization;
+
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('view_any_proverb');
+        return $user->can('view_any_proverb');
     }
 
     /**
@@ -21,7 +23,7 @@ class ProverbPolicy
      */
     public function view(User $user, Proverb $proverb): bool
     {
-        return $user->hasPermissionTo('view_proverb');
+        return $user->can('view_proverb');
     }
 
     /**
@@ -29,7 +31,7 @@ class ProverbPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('create_proverb');
+        return $user->can('create_proverb');
     }
 
     /**
@@ -37,7 +39,7 @@ class ProverbPolicy
      */
     public function update(User $user, Proverb $proverb): bool
     {
-        return $user->hasPermissionTo('update_proverb');
+        return $user->can('update_proverb');
     }
 
     /**
@@ -45,62 +47,62 @@ class ProverbPolicy
      */
     public function delete(User $user, Proverb $proverb): bool
     {
-        return $user->hasPermissionTo('delete_proverb');
+        return $user->can('delete_proverb');
     }
 
     /**
-     * Determine whether the user can delete any the model.
+     * Determine whether the user can bulk delete.
      */
     public function deleteAny(User $user): bool
     {
-        return $user->hasPermissionTo('delete_any_proverb');
+        return $user->can('delete_any_proverb');
     }
 
     /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Proverb $proverb): bool
-    {
-        return $user->hasPermissionTo('restore_proverb');
-    }
-
-    /**
-     * Determine whether the user can restore any models.
-     */
-    public function restoreAny(User $user): bool
-    {
-        return $user->hasPermissionTo('restore_any_proverb');
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
+     * Determine whether the user can permanently delete.
      */
     public function forceDelete(User $user, Proverb $proverb): bool
     {
-        return $user->hasPermissionTo('force_delete_proverb');
+        return $user->can('force_delete_proverb');
     }
 
     /**
-     * Determine whether the user can permanently delete any models.
+     * Determine whether the user can permanently bulk delete.
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->hasPermissionTo('force_delete_any_proverb');
+        return $user->can('force_delete_any_proverb');
     }
 
     /**
-     * Determine whether the user can replicate user.
+     * Determine whether the user can restore.
      */
-    public function replicate(User $user): bool
+    public function restore(User $user, Proverb $proverb): bool
     {
-        return $user->hasPermissionTo('replicate_proverb');
+        return $user->can('restore_proverb');
     }
 
     /**
-     * Determine whether the user can reorder user.
+     * Determine whether the user can bulk restore.
+     */
+    public function restoreAny(User $user): bool
+    {
+        return $user->can('restore_any_proverb');
+    }
+
+    /**
+     * Determine whether the user can replicate.
+     */
+    public function replicate(User $user, Proverb $proverb): bool
+    {
+        return $user->can('replicate_proverb');
+    }
+
+    /**
+     * Determine whether the user can reorder.
      */
     public function reorder(User $user): bool
     {
-        return $user->hasPermissionTo('reorder_proverb');
+        return $user->can('reorder_proverb');
     }
 }

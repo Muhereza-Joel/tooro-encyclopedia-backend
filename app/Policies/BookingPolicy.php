@@ -2,18 +2,20 @@
 
 namespace App\Policies;
 
-use App\Models\Booking;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Models\Booking;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class BookingPolicy
 {
+    use HandlesAuthorization;
+
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('view_any_booking');
+        return $user->can('view_any_booking');
     }
 
     /**
@@ -21,7 +23,7 @@ class BookingPolicy
      */
     public function view(User $user, Booking $booking): bool
     {
-        return $user->hasPermissionTo('view_booking');
+        return $user->can('view_booking');
     }
 
     /**
@@ -29,7 +31,7 @@ class BookingPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('create_booking');
+        return $user->can('create_booking');
     }
 
     /**
@@ -37,7 +39,7 @@ class BookingPolicy
      */
     public function update(User $user, Booking $booking): bool
     {
-        return $user->hasPermissionTo('update_booking');
+        return $user->can('update_booking');
     }
 
     /**
@@ -45,62 +47,62 @@ class BookingPolicy
      */
     public function delete(User $user, Booking $booking): bool
     {
-        return $user->hasPermissionTo('delete_booking');
+        return $user->can('delete_booking');
     }
 
     /**
-     * Determine whether the user can delete any the model.
+     * Determine whether the user can bulk delete.
      */
     public function deleteAny(User $user): bool
     {
-        return $user->hasPermissionTo('delete_any_booking');
+        return $user->can('delete_any_booking');
     }
 
     /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Booking $booking): bool
-    {
-        return $user->hasPermissionTo('restore_booking');
-    }
-
-    /**
-     * Determine whether the user can restore any models.
-     */
-    public function restoreAny(User $user): bool
-    {
-        return $user->hasPermissionTo('restore_any_booking');
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
+     * Determine whether the user can permanently delete.
      */
     public function forceDelete(User $user, Booking $booking): bool
     {
-        return $user->hasPermissionTo('force_delete_booking');
+        return $user->can('force_delete_booking');
     }
 
     /**
-     * Determine whether the user can permanently delete any models.
+     * Determine whether the user can permanently bulk delete.
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->hasPermissionTo('force_delete_any_booking');
+        return $user->can('force_delete_any_booking');
     }
 
     /**
-     * Determine whether the user can replicate user.
+     * Determine whether the user can restore.
      */
-    public function replicate(User $user): bool
+    public function restore(User $user, Booking $booking): bool
     {
-        return $user->hasPermissionTo('replicate_booking');
+        return $user->can('restore_booking');
     }
 
     /**
-     * Determine whether the user can reorder user.
+     * Determine whether the user can bulk restore.
+     */
+    public function restoreAny(User $user): bool
+    {
+        return $user->can('restore_any_booking');
+    }
+
+    /**
+     * Determine whether the user can replicate.
+     */
+    public function replicate(User $user, Booking $booking): bool
+    {
+        return $user->can('replicate_booking');
+    }
+
+    /**
+     * Determine whether the user can reorder.
      */
     public function reorder(User $user): bool
     {
-        return $user->hasPermissionTo('reorder_booking');
+        return $user->can('reorder_booking');
     }
 }

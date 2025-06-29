@@ -2,18 +2,20 @@
 
 namespace App\Policies;
 
-use App\Models\Taboo;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Models\Taboo;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TabooPolicy
 {
+    use HandlesAuthorization;
+
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('view_any_taboo');
+        return $user->can('view_any_taboo');
     }
 
     /**
@@ -21,7 +23,7 @@ class TabooPolicy
      */
     public function view(User $user, Taboo $taboo): bool
     {
-        return $user->hasPermissionTo('view_taboo');
+        return $user->can('view_taboo');
     }
 
     /**
@@ -29,7 +31,7 @@ class TabooPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('create_taboo');
+        return $user->can('create_taboo');
     }
 
     /**
@@ -37,7 +39,7 @@ class TabooPolicy
      */
     public function update(User $user, Taboo $taboo): bool
     {
-        return $user->hasPermissionTo('update_taboo');
+        return $user->can('update_taboo');
     }
 
     /**
@@ -45,54 +47,62 @@ class TabooPolicy
      */
     public function delete(User $user, Taboo $taboo): bool
     {
-        return $user->hasPermissionTo('delete_taboo');
+        return $user->can('delete_taboo');
     }
 
     /**
-     * Determine whether the user can delete any the model.
+     * Determine whether the user can bulk delete.
      */
     public function deleteAny(User $user): bool
     {
-        return $user->hasPermissionTo('delete_any_taboo');
+        return $user->can('delete_any_taboo');
     }
 
     /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Taboo $taboo): bool
-    {
-        return $user->hasPermissionTo('restore_taboo');
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
+     * Determine whether the user can permanently delete.
      */
     public function forceDelete(User $user, Taboo $taboo): bool
     {
-        return $user->hasPermissionTo('force_delete_taboo');
+        return $user->can('force_delete_taboo');
     }
 
     /**
-     * Determine whether the user can permanently delete any models.
+     * Determine whether the user can permanently bulk delete.
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->hasPermissionTo('force_delete_any_taboo');
+        return $user->can('force_delete_any_taboo');
     }
 
     /**
-     * Determine whether the user can replicate user.
+     * Determine whether the user can restore.
      */
-    public function replicate(User $user): bool
+    public function restore(User $user, Taboo $taboo): bool
     {
-        return $user->hasPermissionTo('replicate_taboo');
+        return $user->can('restore_taboo');
     }
 
     /**
-     * Determine whether the user can reorder user.
+     * Determine whether the user can bulk restore.
+     */
+    public function restoreAny(User $user): bool
+    {
+        return $user->can('restore_any_taboo');
+    }
+
+    /**
+     * Determine whether the user can replicate.
+     */
+    public function replicate(User $user, Taboo $taboo): bool
+    {
+        return $user->can('replicate_taboo');
+    }
+
+    /**
+     * Determine whether the user can reorder.
      */
     public function reorder(User $user): bool
     {
-        return $user->hasPermissionTo('reorder_taboo');
+        return $user->can('reorder_taboo');
     }
 }

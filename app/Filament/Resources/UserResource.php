@@ -45,8 +45,11 @@ class UserResource extends Resource
                     ->required()
                     ->maxLength(191),
                 Forms\Components\Select::make('roles')
-                    ->relationship('roles', 'name')
-                    ->multiple()
+                    ->relationship(
+                        name: 'roles',
+                        titleAttribute: 'name',
+                        modifyQueryUsing: fn($query) => $query->where('name', '!=', 'super_admin')
+                    )
                     ->preload()
                     ->searchable(),
                 Forms\Components\TextInput::make('password')

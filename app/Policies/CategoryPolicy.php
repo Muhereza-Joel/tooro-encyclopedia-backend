@@ -2,18 +2,20 @@
 
 namespace App\Policies;
 
-use App\Models\Category;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Models\Category;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CategoryPolicy
 {
+    use HandlesAuthorization;
+
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('view_any_category');
+        return $user->can('view_any_category');
     }
 
     /**
@@ -21,7 +23,7 @@ class CategoryPolicy
      */
     public function view(User $user, Category $category): bool
     {
-        return $user->hasPermissionTo('view_category');
+        return $user->can('view_category');
     }
 
     /**
@@ -29,7 +31,7 @@ class CategoryPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('create_category');
+        return $user->can('create_category');
     }
 
     /**
@@ -37,7 +39,7 @@ class CategoryPolicy
      */
     public function update(User $user, Category $category): bool
     {
-        return $user->hasPermissionTo('update_category');
+        return $user->can('update_category');
     }
 
     /**
@@ -45,62 +47,62 @@ class CategoryPolicy
      */
     public function delete(User $user, Category $category): bool
     {
-        return $user->hasPermissionTo('delete_category');
+        return $user->can('delete_category');
     }
 
     /**
-     * Determine whether the user can delete any the model.
+     * Determine whether the user can bulk delete.
      */
     public function deleteAny(User $user): bool
     {
-        return $user->hasPermissionTo('delete_any_category');
+        return $user->can('delete_any_category');
     }
 
     /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Category $category): bool
-    {
-        return $user->hasPermissionTo('restore_category');
-    }
-
-    /**
-     * Determine whether the user can restore any models.
-     */
-    public function restoreAny(User $user): bool
-    {
-        return $user->hasPermissionTo('restore_any_category');
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
+     * Determine whether the user can permanently delete.
      */
     public function forceDelete(User $user, Category $category): bool
     {
-        return $user->hasPermissionTo('force_delete_category');
+        return $user->can('force_delete_category');
     }
 
     /**
-     * Determine whether the user can permanently delete any models.
+     * Determine whether the user can permanently bulk delete.
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->hasPermissionTo('force_delete_any_category');
+        return $user->can('force_delete_any_category');
     }
 
     /**
-     * Determine whether the user can replicate user.
+     * Determine whether the user can restore.
      */
-    public function replicate(User $user): bool
+    public function restore(User $user, Category $category): bool
     {
-        return $user->hasPermissionTo('replicate_category');
+        return $user->can('restore_category');
     }
 
     /**
-     * Determine whether the user can reorder user.
+     * Determine whether the user can bulk restore.
+     */
+    public function restoreAny(User $user): bool
+    {
+        return $user->can('restore_any_category');
+    }
+
+    /**
+     * Determine whether the user can replicate.
+     */
+    public function replicate(User $user, Category $category): bool
+    {
+        return $user->can('replicate_category');
+    }
+
+    /**
+     * Determine whether the user can reorder.
      */
     public function reorder(User $user): bool
     {
-        return $user->hasPermissionTo('reorder_category');
+        return $user->can('reorder_category');
     }
 }

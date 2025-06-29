@@ -2,18 +2,20 @@
 
 namespace App\Policies;
 
-use App\Models\Artifact;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Models\Artifact;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ArtifactPolicy
 {
+    use HandlesAuthorization;
+
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('view_any_artifact');
+        return $user->can('view_any_artifact');
     }
 
     /**
@@ -21,7 +23,7 @@ class ArtifactPolicy
      */
     public function view(User $user, Artifact $artifact): bool
     {
-        return $user->hasPermissionTo('view_artifact');
+        return $user->can('view_artifact');
     }
 
     /**
@@ -29,7 +31,7 @@ class ArtifactPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('create_artifact');
+        return $user->can('create_artifact');
     }
 
     /**
@@ -37,7 +39,7 @@ class ArtifactPolicy
      */
     public function update(User $user, Artifact $artifact): bool
     {
-        return $user->hasPermissionTo('update_artifact');
+        return $user->can('update_artifact');
     }
 
     /**
@@ -45,62 +47,62 @@ class ArtifactPolicy
      */
     public function delete(User $user, Artifact $artifact): bool
     {
-        return $user->hasPermissionTo('delete_artifact');
+        return $user->can('delete_artifact');
     }
 
     /**
-     * Determine whether the user can delete any the model.
+     * Determine whether the user can bulk delete.
      */
     public function deleteAny(User $user): bool
     {
-        return $user->hasPermissionTo('delete_any_artifact');
+        return $user->can('delete_any_artifact');
     }
 
     /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Artifact $artifact): bool
-    {
-        return $user->hasPermissionTo('restore_artifact');
-    }
-
-    /**
-     * Determine whether the user can restore any models.
-     */
-    public function restoreAny(User $user): bool
-    {
-        return $user->hasPermissionTo('restore_any_artifact');
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
+     * Determine whether the user can permanently delete.
      */
     public function forceDelete(User $user, Artifact $artifact): bool
     {
-        return $user->hasPermissionTo('forece_delete_artifact');
+        return $user->can('force_delete_artifact');
     }
 
     /**
-     * Determine whether the user can permanently delete any models.
+     * Determine whether the user can permanently bulk delete.
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->hasPermissionTo('force_delete_any_artifact');
+        return $user->can('force_delete_any_artifact');
     }
 
     /**
-     * Determine whether the user can replicate user.
+     * Determine whether the user can restore.
      */
-    public function replicate(User $user): bool
+    public function restore(User $user, Artifact $artifact): bool
     {
-        return $user->hasPermissionTo('replicate_artifact');
+        return $user->can('restore_artifact');
     }
 
     /**
-     * Determine whether the user can reorder user.
+     * Determine whether the user can bulk restore.
+     */
+    public function restoreAny(User $user): bool
+    {
+        return $user->can('restore_any_artifact');
+    }
+
+    /**
+     * Determine whether the user can replicate.
+     */
+    public function replicate(User $user, Artifact $artifact): bool
+    {
+        return $user->can('replicate_artifact');
+    }
+
+    /**
+     * Determine whether the user can reorder.
      */
     public function reorder(User $user): bool
     {
-        return $user->hasPermissionTo('reorder_artifact');
+        return $user->can('reorder_artifact');
     }
 }

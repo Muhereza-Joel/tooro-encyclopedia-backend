@@ -2,18 +2,20 @@
 
 namespace App\Policies;
 
-use App\Models\Event;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Models\Event;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class EventPolicy
 {
+    use HandlesAuthorization;
+
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('view_any_event');
+        return $user->can('view_any_event');
     }
 
     /**
@@ -21,7 +23,7 @@ class EventPolicy
      */
     public function view(User $user, Event $event): bool
     {
-        return $user->hasPermissionTo('view_event');
+        return $user->can('view_event');
     }
 
     /**
@@ -29,7 +31,7 @@ class EventPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('create_event');
+        return $user->can('create_event');
     }
 
     /**
@@ -37,7 +39,7 @@ class EventPolicy
      */
     public function update(User $user, Event $event): bool
     {
-        return $user->hasPermissionTo('update_event');
+        return $user->can('update_event');
     }
 
     /**
@@ -45,62 +47,62 @@ class EventPolicy
      */
     public function delete(User $user, Event $event): bool
     {
-        return $user->hasPermissionTo('delete_event');
+        return $user->can('delete_event');
     }
 
     /**
-     * Determine whether the user can delete any the model.
+     * Determine whether the user can bulk delete.
      */
     public function deleteAny(User $user): bool
     {
-        return $user->hasPermissionTo('delete_any_event');
+        return $user->can('delete_any_event');
     }
 
     /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Event $event): bool
-    {
-        return $user->hasPermissionTo('restore_event');
-    }
-
-    /**
-     * Determine whether the user can restore any models.
-     */
-    public function restoreAny(User $user): bool
-    {
-        return $user->hasPermissionTo('restore_any_event');
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
+     * Determine whether the user can permanently delete.
      */
     public function forceDelete(User $user, Event $event): bool
     {
-        return $user->hasPermissionTo('force_delete_event');
+        return $user->can('force_delete_event');
     }
 
     /**
-     * Determine whether the user can permanently delete any models.
+     * Determine whether the user can permanently bulk delete.
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->hasPermissionTo('force_delete_any_event');
+        return $user->can('force_delete_any_event');
     }
 
     /**
-     * Determine whether the user can replicate user.
+     * Determine whether the user can restore.
      */
-    public function replicate(User $user): bool
+    public function restore(User $user, Event $event): bool
     {
-        return $user->hasPermissionTo('replicate_event');
+        return $user->can('restore_event');
     }
 
     /**
-     * Determine whether the user can reorder user.
+     * Determine whether the user can bulk restore.
+     */
+    public function restoreAny(User $user): bool
+    {
+        return $user->can('restore_any_event');
+    }
+
+    /**
+     * Determine whether the user can replicate.
+     */
+    public function replicate(User $user, Event $event): bool
+    {
+        return $user->can('replicate_event');
+    }
+
+    /**
+     * Determine whether the user can reorder.
      */
     public function reorder(User $user): bool
     {
-        return $user->hasPermissionTo('reorder_event');
+        return $user->can('reorder_event');
     }
 }
