@@ -29,51 +29,51 @@ class ClanResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Clan Identity')
-                    ->description('Basic details about the clan and its totem.')
+                    ->description(fn() => $form->getOperation() !== 'view' ? 'Basic details about the clan and its totem.' : null)
                     ->schema([
                         Forms\Components\TextInput::make('name')
                             ->label('Clan Name')
                             ->placeholder('e.g. Babiito, Baitira, Bagaiga')
-                            ->helperText('Enter the full name of the clan.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Enter the full name of the clan.' : null)
                             ->required()
                             ->maxLength(191),
 
                         Forms\Components\TextInput::make('totem')
                             ->label('Totem')
                             ->placeholder('e.g. Leopard, Buffalo')
-                            ->helperText('Animal or symbol associated with the clan.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Animal or symbol associated with the clan.' : null)
                             ->maxLength(191),
                     ]),
 
                 Forms\Components\Section::make('Clan Background')
-                    ->description('Historical and traditional background of the clan.')
+                    ->description(fn() => $form->getOperation() !== 'view' ? 'Historical and traditional background of the clan.' : null)
                     ->schema([
                         Forms\Components\Textarea::make('description')
                             ->label('Description')
                             ->placeholder('Enter a brief history or role of the clan in Tooro Kingdom.')
-                            ->helperText('This may include clan roles, customs, etc.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'This may include clan roles, customs, etc.' : null)
                             ->columnSpanFull(),
 
                         Forms\Components\Textarea::make('origin')
                             ->label('Origin')
                             ->placeholder('Where did this clan come from? Mention places, migrations, etc.')
-                            ->helperText('You can describe migration stories or traditional roots.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'You can describe migration stories or traditional roots.' : null)
                             ->columnSpanFull(),
                     ]),
 
                 Forms\Components\Section::make('Leadership & Notable Members')
-                    ->description('Info about traditional leadership and clan members.')
+                    ->description(fn() => $form->getOperation() !== 'view' ? 'Info about traditional leadership and clan members.' : null)
                     ->schema([
                         Forms\Components\TextInput::make('leader_title')
                             ->label('Leader Title')
                             ->placeholder('e.g. Omutaka, Omukulu')
-                            ->helperText('What title is given to the clan head?')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'What title is given to the clan head?' : null)
                             ->maxLength(191),
 
                         Forms\Components\Textarea::make('notable_members')
                             ->label('Notable Members')
                             ->placeholder('List well-known historical or modern figures from this clan.')
-                            ->helperText('Separate names with commas if listing multiple.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Separate names with commas if listing multiple.' : null)
                             ->columnSpanFull(),
                     ]),
             ]);

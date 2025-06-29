@@ -29,30 +29,30 @@ class ProverbResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Proverb Details')
-                    ->description('Enter the main details of the proverb')
+                    ->description(fn() => $form->getOperation() !== 'view' ? 'Enter the main details of the proverb' : null)
                     ->schema([
                         Forms\Components\TextInput::make('title')
                             ->label('Proverb')
                             ->placeholder('e.g., "Wisdom is like a baobab tree..."')
-                            ->helperText('Enter the full text of the proverb')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Enter the full text of the proverb' : null)
                             ->required()
                             ->maxLength(191),
 
                         Forms\Components\Textarea::make('meaning')
                             ->label('Meaning')
                             ->placeholder('Describe what the proverb means')
-                            ->helperText('Give an explanation or interpretation')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Give an explanation or interpretation' : null)
                             ->required()
                             ->columnSpanFull(),
                     ]),
 
                 Forms\Components\Section::make('Cultural Context')
-                    ->description('Identify the origin and category of the proverb')
+                    ->description(fn() => $form->getOperation() !== 'view' ? 'Identify the origin and category of the proverb' : null)
                     ->schema([
                         Forms\Components\Select::make('origin')
                             ->label('Cultural Origin')
                             ->placeholder('Select the cultural group')
-                            ->helperText('Where this proverb originates from')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Where this proverb originates from' : null)
                             ->options([
                                 'Yoruba' => 'Yoruba',
                                 'Igbo' => 'Igbo',
@@ -65,7 +65,7 @@ class ProverbResource extends Resource
                         Forms\Components\Select::make('category')
                             ->label('Proverb Category')
                             ->placeholder('Select a thematic category')
-                            ->helperText('What theme this proverb relates to')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'What theme this proverb relates to' : null)
                             ->options([
                                 'Wisdom' => 'Wisdom',
                                 'Life' => 'Life',
@@ -77,12 +77,12 @@ class ProverbResource extends Resource
                     ]),
 
                 Forms\Components\Section::make('Usage')
-                    ->description('Give an example of how this proverb is used')
+                    ->description(fn() => $form->getOperation() !== 'view' ? 'Give an example of how this proverb is used' : null)
                     ->schema([
                         Forms\Components\TextInput::make('usageExamples')
                             ->label('Usage Example')
                             ->placeholder('e.g., "When elders are talking, you keep quiet."')
-                            ->helperText('Optional: Show how the proverb is used in a sentence'),
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Optional: Show how the proverb is used in a sentence' : null),
                     ]),
             ]);
     }

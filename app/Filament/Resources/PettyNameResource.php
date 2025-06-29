@@ -29,49 +29,49 @@ class PettyNameResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Petty Name Details')
-                    ->description('Information about the petty name and its significance in Tooro culture.')
+                    ->description(fn() => $form->getOperation() !== 'view' ? 'Information about the petty name and its significance in Tooro culture.' : null)
                     ->schema([
                         Forms\Components\TextInput::make('name')
                             ->label('Petty Name')
                             ->placeholder('e.g. Atwooki, Abwooli')
-                            ->helperText('Enter the full petty name (Empaako).')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Enter the full petty name (Empaako).' : null)
                             ->required()
                             ->maxLength(191),
 
                         Forms\Components\TextInput::make('gender')
                             ->label('Gender')
                             ->placeholder('e.g. Male, Female, Unisex')
-                            ->helperText('Which gender commonly receives this petty name?')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Which gender commonly receives this petty name?' : null)
                             ->required()
                             ->maxLength(191),
 
                         Forms\Components\Textarea::make('meaning')
                             ->label('Meaning')
                             ->placeholder('What does this name signify or symbolize?')
-                            ->helperText('Describe the cultural or literal meaning of the name.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Describe the cultural or literal meaning of the name.' : null)
                             ->required()
                             ->columnSpanFull(),
                     ]),
 
                 Forms\Components\Section::make('Cultural Context')
-                    ->description('Background information about the name’s use in society.')
+                    ->description(fn() => $form->getOperation() !== 'view' ? 'Background information about the name’s use in society.' : null)
                     ->schema([
                         Forms\Components\TextInput::make('origin')
                             ->label('Origin')
                             ->placeholder('e.g. From Batooro royal family, pastoral roots')
-                            ->helperText('Describe the origin of this name if known.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Describe the origin of this name if known.' : null)
                             ->maxLength(191),
 
                         Forms\Components\Textarea::make('description')
                             ->label('Additional Notes')
                             ->placeholder('Any traditional stories, myths, or beliefs associated with the name.')
-                            ->helperText('You can mention how it’s given or any taboos around it.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'You can mention how it’s given or any taboos around it.' : null)
                             ->columnSpanFull(),
 
                         Forms\Components\TextInput::make('common_in_clans')
                             ->label('Common in Clans')
                             ->placeholder('e.g. Babiito, Bateizi')
-                            ->helperText('Mention clans where this petty name is commonly used.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Mention clans where this petty name is commonly used.' : null)
                             ->maxLength(191),
                     ]),
             ]);

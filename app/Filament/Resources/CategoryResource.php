@@ -24,19 +24,19 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Category Information')
-                    ->description('Define the details of the category for organization and filtering.')
+                    ->description(fn() => $form->getOperation() !== 'view' ? 'Define the details of the category for organization and filtering.' : null)
                     ->schema([
                         Forms\Components\TextInput::make('name')
                             ->label('Category Name')
                             ->placeholder('e.g., "Cultural Events", "Artifacts", "Proverbs"')
-                            ->helperText('This name will be used for display and filtering.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'This name will be used for display and filtering.' : null)
                             ->required()
                             ->maxLength(191),
 
                         Forms\Components\RichEditor::make('description')
                             ->label('Category Description')
                             ->placeholder('Describe what this category is about...')
-                            ->helperText('Provide more information about the purpose or use of this category.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Provide more information about the purpose or use of this category.' : null)
                             ->toolbarButtons([
                                 'bold',
                                 'italic',
@@ -56,7 +56,7 @@ class CategoryResource extends Resource
                         Forms\Components\TextInput::make('icon')
                             ->label('Icon (optional)')
                             ->placeholder('e.g., "heroicon-o-archive", "fa-solid fa-landmark"')
-                            ->helperText('Provide the name of a valid icon if you wish to visually represent this category.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Provide the name of a valid icon if you wish to visually represent this category.' : null)
                             ->maxLength(191),
                     ]),
             ]);

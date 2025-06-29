@@ -35,57 +35,57 @@ class ArtifactResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Artifact Details')
-                    ->description('Basic information describing the cultural artifact.')
+                    ->description(fn() => $form->getOperation() !== 'view' ? 'Basic information describing the cultural artifact.' : null)
                     ->schema([
                         Forms\Components\TextInput::make('name')
                             ->label('Name')
                             ->placeholder('e.g. Engalabi Drum')
-                            ->helperText('The traditional or known name of the artifact.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'The traditional or known name of the artifact.' : null)
                             ->required()
                             ->maxLength(191),
 
                         Forms\Components\Textarea::make('description')
                             ->label('Description')
                             ->placeholder('Provide a detailed explanation of what this artifact is.')
-                            ->helperText('Include historical, spiritual, or functional background.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Include historical, spiritual, or functional background.' : null)
                             ->required()
                             ->columnSpanFull(),
 
                         Forms\Components\TextInput::make('material')
                             ->label('Material')
                             ->placeholder('e.g. Wood, Cowhide, Clay')
-                            ->helperText('What is the artifact made of?')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'What is the artifact made of?' : null)
                             ->maxLength(191),
 
                         Forms\Components\TextInput::make('origin')
                             ->label('Origin')
                             ->placeholder('e.g. Batooro Royal Court, 18th Century')
-                            ->helperText('Where or when was this artifact first used or discovered?')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Where or when was this artifact first used or discovered?' : null)
                             ->maxLength(191),
                     ]),
 
                 Forms\Components\Section::make('Function & Categorization')
-                    ->description('Understand the role and classification of the artifact.')
+                    ->description(fn() => $form->getOperation() !== 'view' ? 'Understand the role and classification of the artifact.' : null)
                     ->schema([
                         Forms\Components\Textarea::make('use_case')
                             ->label('Use Case')
                             ->placeholder('How is or was this artifact traditionally used?')
-                            ->helperText('E.g. Ceremonial drum, cooking pot, leadership staff.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'E.g. Ceremonial drum, cooking pot, leadership staff.' : null)
                             ->columnSpanFull(),
 
                         Forms\Components\TextInput::make('category')
                             ->label('Category')
                             ->placeholder('e.g. Musical Instrument, Tool, Ritual Item')
-                            ->helperText('General classification of the artifact.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'General classification of the artifact.' : null)
                             ->maxLength(191),
                     ]),
 
                 Forms\Components\Section::make('Preservation')
-                    ->description('Details about current condition and location.')
+                    ->description(fn() => $form->getOperation() !== 'view' ? 'Details about current condition and location.' : null)
                     ->schema([
                         SpatieMediaLibraryFileUpload::make('image')
                             ->label('Artifact Image')
-                            ->helperText('Upload a clear photo of the artifact.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Upload a clear photo of the artifact.' : null)
                             ->placeholder('Choose images to upload')
                             ->collection('artifact_images')
                             ->image()
@@ -100,7 +100,7 @@ class ArtifactResource extends Resource
                         Forms\Components\TextInput::make('preservation_status')
                             ->label('Preservation Status')
                             ->placeholder('e.g. Excellent, Damaged, Lost')
-                            ->helperText('Describe the current physical condition.')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Describe the current physical condition.' : null)
                             ->maxLength(191),
 
                         Forms\Components\TextInput::make('location')
