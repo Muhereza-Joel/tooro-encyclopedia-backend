@@ -20,6 +20,8 @@ class ArticleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
+    protected static ?string $navigationGroup = 'Culture Preservation';
+
     public static function getNavigationBadge(): ?string
     {
         return Article::count(); // Count all users

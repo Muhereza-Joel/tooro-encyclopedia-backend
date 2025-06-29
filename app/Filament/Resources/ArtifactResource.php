@@ -25,6 +25,8 @@ class ArtifactResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-cube';
 
+    protected static ?string $navigationGroup = 'Culture Preservation';
+
     public static function getNavigationBadge(): ?string
     {
         return Artifact::count(); // Count all users

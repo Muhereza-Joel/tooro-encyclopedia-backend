@@ -19,6 +19,8 @@ class PettyNameResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-identification';
 
+    protected static ?string $navigationGroup = 'Culture Preservation';
+
     public static function getNavigationBadge(): ?string
     {
         return PettyName::count(); // Count all users

@@ -23,6 +23,8 @@ class BookingResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
+    protected static ?string $navigationGroup = 'Culture Promotion';
+
     public static function getNavigationBadge(): ?string
     {
         $user = Auth::user();

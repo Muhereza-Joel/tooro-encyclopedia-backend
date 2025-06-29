@@ -30,6 +30,7 @@ class DashboardPanelProvider extends PanelProvider
             ->id('dashboard')
             ->path('dashboard')
             ->login()
+            ->spa()
             ->darkMode(false)
             ->profile()
             ->registration(\App\Filament\Pages\Register::class)

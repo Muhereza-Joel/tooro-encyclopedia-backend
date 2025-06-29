@@ -19,6 +19,8 @@ class TabooResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-exclamation-circle';
 
+    protected static ?string $navigationGroup = 'Culture Preservation';
+
     public static function getNavigationBadge(): ?string
     {
         return Taboo::count(); // Count all users
