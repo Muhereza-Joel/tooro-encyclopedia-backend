@@ -14,8 +14,6 @@ class PesaPalController extends Controller
 {
     public function ipn(Request $request)
     {
-        Log::info('Received PesaPal IPN:', $request->all());
-
         return response()->json(['message' => 'IPN received'], 200);
     }
 
@@ -41,7 +39,7 @@ class PesaPalController extends Controller
                     'Authorization' => 'Bearer ' . static::getPesaPalToken(),
                     'Content-Type' => 'application/json',
                 ])
-                ->get("https://pay.pesapal.com/v3/api/Transactions/GetTransactionStatus?orderTrackingId={$trackingId}");
+                ->get("https://cybqa.pesapal.com/pesapalv3/api/Transactions/GetTransactionStatus?orderTrackingId={$trackingId}");
 
             if ($response->successful()) {
                 $data = $response->json();
@@ -96,7 +94,7 @@ class PesaPalController extends Controller
     protected static function getPesaPalToken(): string
     {
         $response = Http::withoutVerifying()
-            ->post('https://pay.pesapal.com/v3/api/Auth/RequestToken', [
+            ->post('https://cybqa.pesapal.com/pesapalv3/api/Auth/RequestToken', [
                 'consumer_key' => config('services.pesapal.consumer_key'),
                 'consumer_secret' => config('services.pesapal.consumer_secret'),
             ]);

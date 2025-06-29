@@ -39,7 +39,12 @@ return [
         'consumer_key' => env('PESAPAL_CONSUMER_KEY'),
         'consumer_secret' => env('PESAPAL_CONSUMER_SECRET'),
         'ipn_id' => env('PESAPAL_IPN_ID'),
+        'ipn_url' => env('PESAPAL_IPN_URL'),
         'callback_url' => env('PESAPAL_CALLBACK_URL', 'https://yourdomain.com/pesapal/callback'),
+        'submit_order_url' => env('PESAPAL_SUBMIT_ORDER_URL'),
+        'request_token_url' => env('PESAPAL_REQUEST_TOKEN_URL'),
+        'transaction_status_url' => env('PESAPAL_TRANSACTION_STATUS_URL'),
+
     ],
 
 

@@ -11,6 +11,7 @@ class Booking extends Model
         'event_id',
         'quantity',
         'status',
+        'reference_number', // Unique reference number for the booking
         'order_tracking_id',
     ];
 

@@ -108,10 +108,14 @@ class EventResource extends Resource
                             return;
                         }
 
+                        // Generate a unique reference number (e.g. TUP12345678)
+                        $reference_number = 'TOORO-EVENT-' . mt_rand(10000000, 99999999) . uniqid();
+
                         $booking = $user->bookings()->create([
                             'event_id' => $record->id,
                             'quantity' => $data['quantity'],
                             'status' => 'pending',
+                            'reference_number' => $reference_number,
                         ]);
 
                         Notification::make()
