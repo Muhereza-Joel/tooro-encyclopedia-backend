@@ -68,10 +68,7 @@ class StatsOverview extends BaseWidget
                 ->icon('heroicon-o-exclamation-circle')
                 ->url('/dashboard/taboos'),
 
-            Stat::make('Transactions', Transaction::count())
-                ->description('Total Transactions')
-                ->icon('heroicon-o-currency-dollar')
-                ->url('/dashboard/transactions'),
+
         ];
     }
 }
