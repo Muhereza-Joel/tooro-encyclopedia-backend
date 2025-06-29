@@ -30,48 +30,48 @@ class ArticleResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Section::make('Article Info')
-                    ->description('Basic information about the article')
+                    ->description(fn() => $form->getOperation() !== 'view' ? 'Basic information about the article' : null)
                     ->schema([
                         Forms\Components\TextInput::make('title')
                             ->label('Article Title')
                             ->placeholder('Enter the title of the article')
-                            ->helperText('Keep it short and descriptive')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Keep it short and descriptive' : null)
                             ->required()
                             ->maxLength(191),
 
                         Forms\Components\Select::make('category_id')
                             ->label('Category')
                             ->placeholder('Select a category')
-                            ->helperText('Choose the most appropriate category')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Choose the most appropriate category' : null)
                             ->relationship('category', 'name')
                             ->required(),
 
                         Forms\Components\Select::make('author_id')
                             ->label('Author')
                             ->placeholder('Select an author')
-                            ->helperText('Assign an author to this article')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Assign an author to this article' : null)
                             ->relationship('author', 'name')
                             ->required(),
 
                         Forms\Components\DatePicker::make('published_at')
                             ->label('Publication Date')
                             ->placeholder('Choose publish date')
-                            ->helperText('Select when this article should go live')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Select when this article should go live' : null)
                             ->native(false),
 
                         Forms\Components\Toggle::make('is_featured')
                             ->label('Feature this Article?')
-                            ->helperText('Featured articles appear prominently')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Featured articles appear prominently' : null)
                             ->required(),
                     ]),
 
                 Forms\Components\Section::make('Article Summary')
-                    ->description('Short summary that introduces the article')
+                    ->description(fn() => $form->getOperation() !== 'view' ? 'Short summary that introduces the article' : null)
                     ->schema([
                         Forms\Components\RichEditor::make('summary')
                             ->label('Summary')
                             ->placeholder('Write a brief summary of the article')
-                            ->helperText('Used as a preview or excerpt')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Used as a preview or excerpt' : null)
                             ->toolbarButtons([
                                 'bold',
                                 'italic',
@@ -90,12 +90,12 @@ class ArticleResource extends Resource
                     ]),
 
                 Forms\Components\Section::make('Full Content')
-                    ->description('Main body of the article')
+                    ->description(fn() => $form->getOperation() !== 'view' ? 'Main body of the article' : null)
                     ->schema([
                         Forms\Components\RichEditor::make('content')
                             ->label('Content')
                             ->placeholder('Write the full article content')
-                            ->helperText('This will be the main body of the article')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'This will be the main body of the article' : null)
                             ->toolbarButtons([
                                 'bold',
                                 'italic',
@@ -115,11 +115,11 @@ class ArticleResource extends Resource
                     ]),
 
                 Forms\Components\Section::make('Images')
-                    ->description('Upload related images for the article')
+                    ->description(fn() => $form->getOperation() !== 'view' ? 'Upload related images for the article' : null)
                     ->schema([
                         SpatieMediaLibraryFileUpload::make('image')
                             ->label('Article Images')
-                            ->helperText('Upload clear, relevant images')
+                            ->helperText(fn() => $form->getOperation() !== 'view' ? 'Upload clear, relevant images' : null)
                             ->placeholder('Choose images to upload')
                             ->collection('article_images')
                             ->image()
